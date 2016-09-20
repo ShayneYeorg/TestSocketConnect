@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1CF42EE996944298BC3B4F8F /* libPods-TestSocketConnect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20248DFA5A3691EF9E25C408 /* libPods-TestSocketConnect.a */; };
+		34959CBD1D91262A0022EEEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CBC1D91262A0022EEEE /* main.m */; };
+		34959CC01D91262A0022EEEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CBF1D91262A0022EEEE /* AppDelegate.m */; };
+		34959CC31D91262A0022EEEE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CC21D91262A0022EEEE /* ViewController.m */; };
+		34959CC61D91262A0022EEEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34959CC41D91262A0022EEEE /* Main.storyboard */; };
+		34959CC81D91262A0022EEEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34959CC71D91262A0022EEEE /* Assets.xcassets */; };
+		34959CCB1D91262A0022EEEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34959CC91D91262A0022EEEE /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		20248DFA5A3691EF9E25C408 /* libPods-TestSocketConnect.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TestSocketConnect.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34959CB81D91262A0022EEEE /* TestSocketConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSocketConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34959CBC1D91262A0022EEEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		34959CBE1D91262A0022EEEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		34959CBF1D91262A0022EEEE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		34959CC11D91262A0022EEEE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		34959CC21D91262A0022EEEE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		34959CC51D91262A0022EEEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		34959CC71D91262A0022EEEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		34959CCA1D91262A0022EEEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		34959CCC1D91262A0022EEEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		745935F6EDFDB9EA88827320 /* Pods-TestSocketConnect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestSocketConnect.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestSocketConnect/Pods-TestSocketConnect.release.xcconfig"; sourceTree = "<group>"; };
+		C76C69C7299C2C3766482BFB /* Pods-TestSocketConnect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestSocketConnect.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestSocketConnect/Pods-TestSocketConnect.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		34959CB51D91262A0022EEEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CF42EE996944298BC3B4F8F /* libPods-TestSocketConnect.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C4EB5EBCCFA0BB6EC60059 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20248DFA5A3691EF9E25C408 /* libPods-TestSocketConnect.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34959CAF1D91262A0022EEEE = {
+			isa = PBXGroup;
+			children = (
+				34959CBA1D91262A0022EEEE /* TestSocketConnect */,
+				34959CB91D91262A0022EEEE /* Products */,
+				B878E7637362BA4CA8C9594D /* Pods */,
+				19C4EB5EBCCFA0BB6EC60059 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		34959CB91D91262A0022EEEE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				34959CB81D91262A0022EEEE /* TestSocketConnect.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		34959CBA1D91262A0022EEEE /* TestSocketConnect */ = {
+			isa = PBXGroup;
+			children = (
+				34959CBE1D91262A0022EEEE /* AppDelegate.h */,
+				34959CBF1D91262A0022EEEE /* AppDelegate.m */,
+				34959CC11D91262A0022EEEE /* ViewController.h */,
+				34959CC21D91262A0022EEEE /* ViewController.m */,
+				34959CC41D91262A0022EEEE /* Main.storyboard */,
+				34959CC71D91262A0022EEEE /* Assets.xcassets */,
+				34959CC91D91262A0022EEEE /* LaunchScreen.storyboard */,
+				34959CCC1D91262A0022EEEE /* Info.plist */,
+				34959CBB1D91262A0022EEEE /* Supporting Files */,
+			);
+			path = TestSocketConnect;
+			sourceTree = "<group>";
+		};
+		34959CBB1D91262A0022EEEE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				34959CBC1D91262A0022EEEE /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B878E7637362BA4CA8C9594D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C76C69C7299C2C3766482BFB /* Pods-TestSocketConnect.debug.xcconfig */,
+				745935F6EDFDB9EA88827320 /* Pods-TestSocketConnect.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		34959CB71D91262A0022EEEE /* TestSocketConnect */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34959CCF1D91262A0022EEEE /* Build configuration list for PBXNativeTarget "TestSocketConnect" */;
+			buildPhases = (
+				E104C6BCEB9F4935939813DF /* [CP] Check Pods Manifest.lock */,
+				34959CB41D91262A0022EEEE /* Sources */,
+				34959CB51D91262A0022EEEE /* Frameworks */,
+				34959CB61D91262A0022EEEE /* Resources */,
+				4812322FBE0BF12169E82A05 /* [CP] Embed Pods Frameworks */,
+				0160EF829D747E4D2CF1BB20 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestSocketConnect;
+			productName = TestSocketConnect;
+			productReference = 34959CB81D91262A0022EEEE /* TestSocketConnect.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		34959CB01D91262A0022EEEE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = shayneyeorg;
+				TargetAttributes = {
+					34959CB71D91262A0022EEEE = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 34959CB31D91262A0022EEEE /* Build configuration list for PBXProject "TestSocketConnect" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 34959CAF1D91262A0022EEEE;
+			productRefGroup = 34959CB91D91262A0022EEEE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34959CB71D91262A0022EEEE /* TestSocketConnect */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		34959CB61D91262A0022EEEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34959CCB1D91262A0022EEEE /* LaunchScreen.storyboard in Resources */,
+				34959CC81D91262A0022EEEE /* Assets.xcassets in Resources */,
+				34959CC61D91262A0022EEEE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0160EF829D747E4D2CF1BB20 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestSocketConnect/Pods-TestSocketConnect-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4812322FBE0BF12169E82A05 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestSocketConnect/Pods-TestSocketConnect-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E104C6BCEB9F4935939813DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		34959CB41D91262A0022EEEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34959CC31D91262A0022EEEE /* ViewController.m in Sources */,
+				34959CC01D91262A0022EEEE /* AppDelegate.m in Sources */,
+				34959CBD1D91262A0022EEEE /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		34959CC41D91262A0022EEEE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34959CC51D91262A0022EEEE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		34959CC91D91262A0022EEEE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34959CCA1D91262A0022EEEE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		34959CCD1D91262A0022EEEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		34959CCE1D91262A0022EEEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		34959CD01D91262A0022EEEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C76C69C7299C2C3766482BFB /* Pods-TestSocketConnect.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TestSocketConnect/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = shayneyeorg.TestSocketConnect;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		34959CD11D91262A0022EEEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 745935F6EDFDB9EA88827320 /* Pods-TestSocketConnect.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TestSocketConnect/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = shayneyeorg.TestSocketConnect;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34959CB31D91262A0022EEEE /* Build configuration list for PBXProject "TestSocketConnect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34959CCD1D91262A0022EEEE /* Debug */,
+				34959CCE1D91262A0022EEEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34959CCF1D91262A0022EEEE /* Build configuration list for PBXNativeTarget "TestSocketConnect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34959CD01D91262A0022EEEE /* Debug */,
+				34959CD11D91262A0022EEEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 34959CB01D91262A0022EEEE /* Project object */;
+}
