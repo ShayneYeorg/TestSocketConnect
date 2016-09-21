@@ -7,12 +7,11 @@
 //
 
 #import "ViewController.h"
-#import <CocoaAsyncSocket/GCDAsyncSocket.h>
+#import "ShYSocketManager.h"
 
 @interface ViewController () <GCDAsyncSocketDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     NSMutableArray * arrMessages;
-    GCDAsyncSocket * _asyncSocket;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tblMessageContent;
 
@@ -30,18 +29,11 @@
 
 @implementation ViewController
 
--(void)dealloc{
-    [_asyncSocket disconnect];
-    _asyncSocket.delegate = nil;
-    _asyncSocket = nil;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     arrMessages = [[NSMutableArray alloc] init];
-    _asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     [_btnConnect setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_btnConnect setTitleColor:[UIColor greenColor] forState:UIControlStateDisabled];
     [_btnConnect setTitle:@"连接" forState:UIControlStateNormal];
@@ -57,14 +49,20 @@
     self.nickName = @"Shayne";
 }
 
+- (void)dealloc {
+    ShYSocketManager *socketManager = [ShYSocketManager share];
+    [socketManager disconnect];
+}
+
 - (IBAction)connectAction:(id)sender {
     [self.view endEditing:true];
+    ShYSocketManager *socketManager = [ShYSocketManager share];
     NSString * strAddr = [_txtAddress text];
     NSString * strPort = [_txtPort text];
     if (strAddr.length && strPort.length) {
         NSError * error = nil;
         //连接服务器
-        [_asyncSocket connectToHost:strAddr onPort:[strPort intValue] error:&error];
+        [socketManager connectToHost:strAddr onPort:strPort error:&error];
         if (error) {
             NSLog(@"连接失败: %@", error.description);
         }
@@ -75,11 +73,12 @@
 
 - (IBAction)sendAction:(id)sender {
     [self.view endEditing:true];
-    if ([_asyncSocket isConnected]) {
+    ShYSocketManager *socketManager = [ShYSocketManager share];
+    if ([socketManager isConnected]) {
         NSString * strMsg = [_txtMessage text];
         if (strMsg.length) {
             NSData * data = [strMsg dataUsingEncoding:NSUTF8StringEncoding];
-            [_asyncSocket writeData:data withTimeout:-1 tag:0];
+            [socketManager.asyncSocket writeData:data withTimeout:-1 tag:0];
             NSDictionary * dic = @{@"from":self.nickName,@"msg":strMsg};
             [arrMessages addObject:dic];
             [_tblMessageContent reloadData];
@@ -97,8 +96,9 @@
 }
 
 - (IBAction)btnDisconnect:(id)sender {
-    if ([_asyncSocket isConnected]) {
-        [_asyncSocket disconnect];
+    ShYSocketManager *socketManager = [ShYSocketManager share];
+    if ([socketManager isConnected]) {
+        [socketManager disconnect];
     }
 }
 

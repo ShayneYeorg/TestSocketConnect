@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1CF42EE996944298BC3B4F8F /* libPods-TestSocketConnect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20248DFA5A3691EF9E25C408 /* libPods-TestSocketConnect.a */; };
-		3401119A1D922BBC0033FEF2 /* ShYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 340111991D922BBC0033FEF2 /* ShYSocket.m */; };
 		3401119D1D922BDE0033FEF2 /* ShYSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401119C1D922BDE0033FEF2 /* ShYSocketManager.m */; };
 		34959CBD1D91262A0022EEEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CBC1D91262A0022EEEE /* main.m */; };
 		34959CC01D91262A0022EEEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CBF1D91262A0022EEEE /* AppDelegate.m */; };
@@ -20,8 +19,6 @@
 
 /* Begin PBXFileReference section */
 		20248DFA5A3691EF9E25C408 /* libPods-TestSocketConnect.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TestSocketConnect.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		340111981D922BBC0033FEF2 /* ShYSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShYSocket.h; sourceTree = "<group>"; };
-		340111991D922BBC0033FEF2 /* ShYSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShYSocket.m; sourceTree = "<group>"; };
 		3401119B1D922BDE0033FEF2 /* ShYSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShYSocketManager.h; sourceTree = "<group>"; };
 		3401119C1D922BDE0033FEF2 /* ShYSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShYSocketManager.m; sourceTree = "<group>"; };
 		34959CB81D91262A0022EEEE /* TestSocketConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSocketConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,8 +82,6 @@
 				34959CC21D91262A0022EEEE /* ViewController.m */,
 				3401119B1D922BDE0033FEF2 /* ShYSocketManager.h */,
 				3401119C1D922BDE0033FEF2 /* ShYSocketManager.m */,
-				340111981D922BBC0033FEF2 /* ShYSocket.h */,
-				340111991D922BBC0033FEF2 /* ShYSocket.m */,
 				34959CC41D91262A0022EEEE /* Main.storyboard */,
 				34959CC71D91262A0022EEEE /* Assets.xcassets */,
 				34959CC91D91262A0022EEEE /* LaunchScreen.storyboard */,
@@ -240,7 +235,6 @@
 				3401119D1D922BDE0033FEF2 /* ShYSocketManager.m in Sources */,
 				34959CC01D91262A0022EEEE /* AppDelegate.m in Sources */,
 				34959CBD1D91262A0022EEEE /* main.m in Sources */,
-				3401119A1D922BBC0033FEF2 /* ShYSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

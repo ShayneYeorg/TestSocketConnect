@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CocoaAsyncSocket/GCDAsyncSocket.h>
 
 @interface ShYSocketManager : NSObject
+
+@property (nonatomic, strong) GCDAsyncSocket *asyncSocket;
+
++ (ShYSocketManager *)share;
+
+- (BOOL)connectToHost:(NSString *)strAddr onPort:(NSString *)strPort error:(NSError **)errPtr;
+- (void)disconnect;
+- (BOOL)isConnected;
+
+- (void)sendMessage:(NSString *) tag:(NSString *)tag;
 
 @end
