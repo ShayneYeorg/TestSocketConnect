@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CocoaAsyncSocket/GCDAsyncSocket.h>
 
+extern NSString * const SOCKET_DID_CONNECT;
+extern NSString * const SOCKET_DID_DISCONNECT;
+
+typedef void (^VoidBlock)();
+typedef void (^BlockWithDictionary)(NSDictionary *dic);
+
 @interface ShYSocketManager : NSObject
 
 @property (nonatomic, strong) GCDAsyncSocket *asyncSocket;
@@ -19,6 +25,9 @@
 - (void)disconnect;
 - (BOOL)isConnected;
 
-- (void)sendMessage:(NSString *) tag:(NSString *)tag;
+- (void)sendMessage:(NSString *)message module:(NSString *)moduleName;
+
+- (void)setDidSendMessageCallback:(VoidBlock)sendMessageCallback module:(NSString *)moduleName;
+- (void)setDidReceiveMessageCallback:(BlockWithDictionary)receiveMessageCallback module:(NSString *)moduleName;
 
 @end

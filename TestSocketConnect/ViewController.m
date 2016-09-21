@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "ShYSocketManager.h"
 
+static NSString *MODULE_NAME = @"ViewController";
+
 @interface ViewController () <GCDAsyncSocketDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     NSMutableArray * arrMessages;
@@ -24,14 +26,12 @@
 
 @property (strong, nonatomic) NSString *nickName;
 
-
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
     arrMessages = [[NSMutableArray alloc] init];
     [_btnConnect setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -47,6 +47,10 @@
     [_btnDisconnect setEnabled:false];
     
     self.nickName = @"Shayne";
+    [self setupCallbacks];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveSocketDidConnectNotification:) name:SOCKET_DID_CONNECT object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveSocketDidDisconnectNotification:) name:SOCKET_DID_DISCONNECT object:nil];
 }
 
 - (void)dealloc {
@@ -77,9 +81,8 @@
     if ([socketManager isConnected]) {
         NSString * strMsg = [_txtMessage text];
         if (strMsg.length) {
-            NSData * data = [strMsg dataUsingEncoding:NSUTF8StringEncoding];
-            [socketManager.asyncSocket writeData:data withTimeout:-1 tag:0];
-            NSDictionary * dic = @{@"from":self.nickName,@"msg":strMsg};
+            [socketManager sendMessage:strMsg module:MODULE_NAME];
+            NSDictionary *dic = @{@"from":self.nickName,@"msg":strMsg};
             [arrMessages addObject:dic];
             [_tblMessageContent reloadData];
             [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
@@ -91,10 +94,6 @@
     }
 }
 
-- (void)sendMessage:(NSString *)msg {
-    
-}
-
 - (IBAction)btnDisconnect:(id)sender {
     ShYSocketManager *socketManager = [ShYSocketManager share];
     if ([socketManager isConnected]) {
@@ -102,44 +101,29 @@
     }
 }
 
-#pragma mark -
+- (void)setupCallbacks {
+    ShYSocketManager *socketManager = [ShYSocketManager share];
+    __weak typeof(self) weakSelf = self;
+    
+    [socketManager setDidSendMessageCallback:^{
+        [weakSelf.txtMessage setText:@""];
+    } module:MODULE_NAME];
+    
+    [socketManager setDidReceiveMessageCallback:^(NSDictionary *dic) {
+        
+    } module:MODULE_NAME];
+}
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
-{
-    NSLog(@"断开连接...%@", err.description);
+- (void)receiveSocketDidConnectNotification:(NSNotification *)notification {
+    [_btnConnect setEnabled:false];
+    [_btnDisconnect setEnabled:true];
+}
+
+- (void)receiveSocketDidDisconnectNotification:(NSNotification *)notification {
     [_btnConnect setEnabled:true];
     [_btnDisconnect setEnabled:false];
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
-{
-    NSLog(@"已连接: %@, 端口: %d", host, port);
-    [_btnConnect setEnabled:false];
-    [_btnDisconnect setEnabled:true];
-    [sock readDataWithTimeout:-1 tag:0];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-    
-    id obj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    if (obj) {
-        [arrMessages addObject:obj];
-    }else{
-        [arrMessages addObject:[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]];
-    }
-    
-    [_tblMessageContent reloadData];
-    [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
-    [sock readDataWithTimeout:-1 tag:tag];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    NSLog(@"已发送Tag: %ld", tag);
-    [_txtMessage setText:@""];
-    [sock readDataWithTimeout:-1 tag:tag];
-}
 
 #pragma mark -
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -186,18 +170,6 @@
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:true];
-}
-
-
-#pragma mark -
-
--(NSString *)jsonString:(NSDictionary *)dicMsg{
-    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dicMsg options:NSJSONWritingPrettyPrinted error:nil];
-    if (jsonData) {
-        NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        return jsonString;
-    }
-    return nil;
 }
 
 - (void)didReceiveMemoryWarning {
