@@ -6,8 +6,9 @@
 //  Copyright © 2016年 shayneyeorg. All rights reserved.
 //
 
-#import <CocoaAsyncSocket/CocoaAsyncSocket.h>
+//#import <CocoaAsyncSocket/CocoaAsyncSocket.h>
+#import <Foundation/Foundation.h>
 
-@interface ShYSocket : GCDAsyncSocket
+@interface ShYSocket : NSObject
 
 @end
