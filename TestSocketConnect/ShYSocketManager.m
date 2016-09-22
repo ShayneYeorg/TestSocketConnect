@@ -68,8 +68,9 @@ static ShYSocketManager *socketManager;
     return [self.asyncSocket isConnected];
 }
 
-- (void)sendMessage:(NSString *)message module:(NSString *)moduleName {
-    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+- (void)sendMessage:(NSDictionary *)messageDic {
+    NSString *dataStr = [self jsonString:messageDic];
+    NSData *data = [dataStr dataUsingEncoding:NSUTF8StringEncoding];
     [self.asyncSocket writeData:data withTimeout:-1 tag:TAG];
 }
 
@@ -96,20 +97,19 @@ static ShYSocketManager *socketManager;
     NSLog(@"断开连接...%@", err.description);
 }
 
-//- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-//{
-//    
-//    id obj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-//    if (obj) {
-//        [arrMessages addObject:obj];
-//    }else{
-//        [arrMessages addObject:[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]];
-//    }
-//    
-//    [_tblMessageContent reloadData];
-//    [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
-//    [sock readDataWithTimeout:-1 tag:tag];
-//}
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    if (dic) {
+        NSString *receiveModule = dic[@"module"];
+        if (receiveModule && self.didReceiveMsgCallbacks[receiveModule]) {
+            BlockWithDictionary callback = self.didReceiveMsgCallbacks[receiveModule];
+            callback(dic);
+        }
+    }
+    
+    [sock readDataWithTimeout:-1 tag:tag];
+}
+
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {

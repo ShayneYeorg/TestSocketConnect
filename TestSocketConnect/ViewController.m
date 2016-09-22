@@ -12,11 +12,8 @@
 static NSString *MODULE_NAME = @"ViewController";
 
 @interface ViewController () <GCDAsyncSocketDelegate,UITableViewDelegate,UITableViewDataSource>
-{
-    NSMutableArray * arrMessages;
-}
 @property (weak, nonatomic) IBOutlet UITableView *tblMessageContent;
-
+@property (strong, nonatomic) NSMutableArray * arrMessages;
 @property (weak, nonatomic) IBOutlet UITextField *txtMessage;
 @property (weak, nonatomic) IBOutlet UITextField *txtPort;
 @property (weak, nonatomic) IBOutlet UITextField *txtAddress;
@@ -33,7 +30,7 @@ static NSString *MODULE_NAME = @"ViewController";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    arrMessages = [[NSMutableArray alloc] init];
+    self.arrMessages = [[NSMutableArray alloc] init];
     [_btnConnect setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_btnConnect setTitleColor:[UIColor greenColor] forState:UIControlStateDisabled];
     [_btnConnect setTitle:@"连接" forState:UIControlStateNormal];
@@ -46,7 +43,7 @@ static NSString *MODULE_NAME = @"ViewController";
     [_btnDisconnect setTitle:@"连接已断开" forState:UIControlStateDisabled];
     [_btnDisconnect setEnabled:false];
     
-    self.nickName = @"Shayne";
+    self.nickName = @"模拟器";
     [self setupCallbacks];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveSocketDidConnectNotification:) name:SOCKET_DID_CONNECT object:nil];
@@ -81,11 +78,11 @@ static NSString *MODULE_NAME = @"ViewController";
     if ([socketManager isConnected]) {
         NSString * strMsg = [_txtMessage text];
         if (strMsg.length) {
-            [socketManager sendMessage:strMsg module:MODULE_NAME];
-            NSDictionary *dic = @{@"from":self.nickName,@"msg":strMsg};
-            [arrMessages addObject:dic];
+            NSDictionary *dic = @{@"user":self.nickName, @"module":MODULE_NAME, @"msg":strMsg};
+            [socketManager sendMessage:dic];
+            [self.arrMessages addObject:dic];
             [_tblMessageContent reloadData];
-            [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
+            [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
         }else{
             NSLog(@"信息不能为空");
         }
@@ -110,7 +107,9 @@ static NSString *MODULE_NAME = @"ViewController";
     } module:MODULE_NAME];
     
     [socketManager setDidReceiveMessageCallback:^(NSDictionary *dic) {
-        
+        [weakSelf.arrMessages addObject:dic];
+        [weakSelf.tblMessageContent reloadData];
+        [weakSelf.tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
     } module:MODULE_NAME];
 }
 
@@ -127,7 +126,7 @@ static NSString *MODULE_NAME = @"ViewController";
 
 #pragma mark -
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return arrMessages.count;
+    return self.arrMessages.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -139,25 +138,30 @@ static NSString *MODULE_NAME = @"ViewController";
         [cell.textLabel setFont:[UIFont systemFontOfSize:14.0]];
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:14.0]];
     }
-    id msg = [arrMessages objectAtIndex:indexPath.row];
+    id msg = [self.arrMessages objectAtIndex:indexPath.row];
     if ([msg isKindOfClass:[NSDictionary class]]) {
-        NSString * from = msg[@"from"];
-        if ([from isEqualToString:@"Server"]) {
+        NSString *fromIP = msg[@"from"]; //这个是IP
+        NSString *user = msg[@"user"]; //这个是用户名
+        if ([fromIP isEqualToString:@"Server"]) {
             [cell.textLabel setTextColor:[UIColor orangeColor]];
             [cell.detailTextLabel setTextColor:[UIColor orangeColor]];
-        }else if ([from isEqualToString:self.nickName]){
+            
+        } else if ([user isEqualToString:self.nickName]){
             [cell.textLabel setTextColor:[UIColor blueColor]];
             [cell.detailTextLabel setTextColor:[UIColor blueColor]];
-        }else{
+            
+        } else{
             [cell.textLabel setTextColor:[UIColor greenColor]];
             [cell.detailTextLabel setTextColor:[UIColor greenColor]];
         }
-        cell.textLabel.text = msg[@"from"];
+        cell.textLabel.text = user;
         cell.detailTextLabel.text = msg[@"msg"];
-    }else{
+        
+    } else {
         cell.textLabel.text = @"Unknown";
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",msg];
     }
+    
     return cell;
 }
 
