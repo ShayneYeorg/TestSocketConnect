@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CocoaAsyncSocket/GCDAsyncSocket.h>
 
+extern NSString * const OPERATION;
+extern NSString * const OPERATION_ONLINE;
+extern NSString * const OPERATION_OFFLINE;
+extern NSString * const OPERATION_CHAT;
+
 extern NSString * const SOCKET_DID_CONNECT;
 extern NSString * const SOCKET_DID_DISCONNECT;
 

@@ -12,9 +12,8 @@
 static NSString *MODULE_NAME = @"ViewController";
 static const long TAG = 0;
 
-@interface ViewController () <GCDAsyncSocketDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tblMessageContent;
-@property (strong, nonatomic) NSMutableArray * arrMessages;
 @property (weak, nonatomic) IBOutlet UITextField *txtMessage;
 @property (weak, nonatomic) IBOutlet UITextField *txtPort;
 @property (weak, nonatomic) IBOutlet UITextField *txtAddress;
@@ -22,6 +21,7 @@ static const long TAG = 0;
 @property (weak, nonatomic) IBOutlet UIButton *btnSend;
 @property (weak, nonatomic) IBOutlet UIButton *btnDisconnect;
 
+@property (strong, nonatomic) NSMutableArray *arrMessages;
 @property (strong, nonatomic) NSString *nickName;
 
 @end
@@ -67,7 +67,16 @@ static const long TAG = 0;
         [socketManager connectToHost:strAddr onPort:strPort error:&error];
         if (error) {
             NSLog(@"连接失败: %@", error.description);
+            
+        } else {
+            //告诉全世界,哥上线了
+            NSDictionary *dic = @{@"user":self.nickName, @"module":MODULE_NAME, OPERATION: OPERATION_ONLINE};
+            [socketManager sendMessage:dic tag:TAG];
+            [self.arrMessages addObject:dic];
+            [_tblMessageContent reloadData];
+            [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
         }
+        
     }else{
         NSLog(@"请将地址信息填写完整");
     }
@@ -79,7 +88,7 @@ static const long TAG = 0;
     if ([socketManager isConnected]) {
         NSString * strMsg = [_txtMessage text];
         if (strMsg.length) {
-            NSDictionary *dic = @{@"user":self.nickName, @"module":MODULE_NAME, @"msg":strMsg};
+            NSDictionary *dic = @{@"user":self.nickName, @"module":MODULE_NAME, @"msg":strMsg, OPERATION: OPERATION_CHAT};
             [socketManager sendMessage:dic tag:TAG];
             [self.arrMessages addObject:dic];
             [_tblMessageContent reloadData];
@@ -95,6 +104,13 @@ static const long TAG = 0;
 - (IBAction)btnDisconnect:(id)sender {
     ShYSocketManager *socketManager = [ShYSocketManager share];
     if ([socketManager isConnected]) {
+        //告诉全世界，哥下线了
+        NSDictionary *dic = @{@"user":self.nickName, @"module":MODULE_NAME, OPERATION: OPERATION_OFFLINE};
+        [socketManager sendMessage:dic tag:TAG];
+        [self.arrMessages addObject:dic];
+        [_tblMessageContent reloadData];
+        [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
+        
         [socketManager disconnect];
     }
 }
@@ -141,22 +157,38 @@ static const long TAG = 0;
     }
     id msg = [self.arrMessages objectAtIndex:indexPath.row];
     if ([msg isKindOfClass:[NSDictionary class]]) {
-        NSString *fromIP = msg[@"from"]; //这个是IP
-        NSString *user = msg[@"user"]; //这个是用户名
-        if ([fromIP isEqualToString:@"Server"]) {
+        if ([msg[OPERATION] isEqualToString:OPERATION_CHAT]) {
+            //聊天
+            NSString *user = msg[@"user"]; //这个是用户名
+            if ([user isEqualToString:self.nickName]){
+                [cell.textLabel setTextColor:[UIColor blueColor]];
+                [cell.detailTextLabel setTextColor:[UIColor blueColor]];
+                
+            } else{
+                [cell.textLabel setTextColor:[UIColor greenColor]];
+                [cell.detailTextLabel setTextColor:[UIColor greenColor]];
+            }
+            cell.textLabel.text = user;
+            cell.detailTextLabel.text = msg[@"msg"];
+            
+        } else if ([msg[OPERATION] isEqualToString:OPERATION_ONLINE]) {
+            NSString *user = msg[@"user"]; //这个是用户名
             [cell.textLabel setTextColor:[UIColor orangeColor]];
             [cell.detailTextLabel setTextColor:[UIColor orangeColor]];
+            cell.textLabel.text = @"";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@上线了", user];
             
-        } else if ([user isEqualToString:self.nickName]){
-            [cell.textLabel setTextColor:[UIColor blueColor]];
-            [cell.detailTextLabel setTextColor:[UIColor blueColor]];
+        } else  if ([msg[OPERATION] isEqualToString:OPERATION_OFFLINE]) {
+            NSString *user = msg[@"user"]; //这个是用户名
+            [cell.textLabel setTextColor:[UIColor orangeColor]];
+            [cell.detailTextLabel setTextColor:[UIColor orangeColor]];
+            cell.textLabel.text = @"";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@下线了", user];
             
-        } else{
-            [cell.textLabel setTextColor:[UIColor greenColor]];
-            [cell.detailTextLabel setTextColor:[UIColor greenColor]];
+        } else {
+            cell.textLabel.text = @"Unknown";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",msg];
         }
-        cell.textLabel.text = user;
-        cell.detailTextLabel.text = msg[@"msg"];
         
     } else {
         cell.textLabel.text = @"Unknown";

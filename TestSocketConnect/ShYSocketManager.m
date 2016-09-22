@@ -8,6 +8,12 @@
 
 #import "ShYSocketManager.h"
 
+//操作代码
+NSString * const OPERATION         = @"operation";
+NSString * const OPERATION_ONLINE  = @"000";
+NSString * const OPERATION_OFFLINE = @"001";
+NSString * const OPERATION_CHAT    = @"100";
+
 //虽然可能会有多个模块使用到ShYSocketManager，但是所有模块都是共用一个socket
 //socket和这些模块是一对多的关系，所以使用通知来告知所有模块socket的连接状况
 NSString * const SOCKET_DID_CONNECT    = @"SOCKET_DID_CONNECT";
