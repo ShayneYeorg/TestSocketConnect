@@ -13,8 +13,6 @@
 NSString * const SOCKET_DID_CONNECT    = @"SOCKET_DID_CONNECT";
 NSString * const SOCKET_DID_DISCONNECT = @"SOCKET_DID_DISCONNECT";
 
-static const long TAG = 0;
-
 @class ShYSocketManager;
 
 static ShYSocketManager *socketManager;
@@ -27,6 +25,8 @@ static ShYSocketManager *socketManager;
 @property (nonatomic, strong) NSMutableDictionary *didSendMsgCallbacks;
 @property (nonatomic, strong) NSMutableDictionary *didReceiveMsgCallbacks;
 
+@property (nonatomic, strong) NSMutableDictionary *tagModuleContrast;
+
 @end
 
 @implementation ShYSocketManager
@@ -38,6 +38,7 @@ static ShYSocketManager *socketManager;
         self.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
         self.didSendMsgCallbacks = [NSMutableDictionary dictionary];
         self.didReceiveMsgCallbacks = [NSMutableDictionary dictionary];
+        self.tagModuleContrast = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -60,6 +61,10 @@ static ShYSocketManager *socketManager;
 
 - (void)disconnect {
     [self.asyncSocket disconnect];
+    self.tagModuleContrast = nil;
+    self.didSendMsgCallbacks = nil;
+    self.didReceiveMsgCallbacks = nil;
+    
 //    self.asyncSocket.delegate = nil;
 //    self.asyncSocket = nil;
 }
@@ -68,10 +73,16 @@ static ShYSocketManager *socketManager;
     return [self.asyncSocket isConnected];
 }
 
-- (void)sendMessage:(NSDictionary *)messageDic {
+- (void)sendMessage:(NSDictionary *)messageDic tag:(long)tag {
+    //保存好发送消息的tag和模块之间的对应关系
+    NSString *tagStr = [NSString stringWithFormat:@"%ld", tag];
+    if (!self.tagModuleContrast[tagStr] && messageDic[@"module"]) {
+        [self.tagModuleContrast setObject:messageDic[@"module"] forKey:tagStr];
+    }
+    
     NSString *dataStr = [self jsonString:messageDic];
     NSData *data = [dataStr dataUsingEncoding:NSUTF8StringEncoding];
-    [self.asyncSocket writeData:data withTimeout:-1 tag:TAG];
+    [self.asyncSocket writeData:data withTimeout:-1 tag:tag];
 }
 
 #pragma mark - SetUpCallbacks
@@ -89,7 +100,7 @@ static ShYSocketManager *socketManager;
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port {
     [[NSNotificationCenter defaultCenter]postNotificationName:SOCKET_DID_CONNECT object:nil userInfo:nil];
     NSLog(@"已连接: %@, 端口: %d", host, port);
-    [sock readDataWithTimeout:-1 tag:TAG];
+    [sock readDataWithTimeout:-1 tag:1]; //这个tag不一定要与发送消息时的tag相同
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
@@ -111,8 +122,12 @@ static ShYSocketManager *socketManager;
 }
 
 
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
+    NSString *tagStr = [NSString stringWithFormat:@"%ld", tag];
+    if (self.tagModuleContrast[tagStr] && self.didSendMsgCallbacks[self.tagModuleContrast[tagStr]]) {
+        VoidBlock callback = self.didSendMsgCallbacks[self.tagModuleContrast[tagStr]];
+        callback();
+    }
     NSLog(@"已发送Tag: %ld", tag);
     [sock readDataWithTimeout:-1 tag:tag];
 }

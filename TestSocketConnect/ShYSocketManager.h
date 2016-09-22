@@ -25,7 +25,7 @@ typedef void (^BlockWithDictionary)(NSDictionary *dic);
 - (void)disconnect;
 - (BOOL)isConnected;
 
-- (void)sendMessage:(NSDictionary *)messageDic;
+- (void)sendMessage:(NSDictionary *)messageDic tag:(long)tag;
 
 - (void)setDidSendMessageCallback:(VoidBlock)sendMessageCallback module:(NSString *)moduleName;
 - (void)setDidReceiveMessageCallback:(BlockWithDictionary)receiveMessageCallback module:(NSString *)moduleName;

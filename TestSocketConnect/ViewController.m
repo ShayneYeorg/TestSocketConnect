@@ -10,6 +10,7 @@
 #import "ShYSocketManager.h"
 
 static NSString *MODULE_NAME = @"ViewController";
+static const long TAG = 0;
 
 @interface ViewController () <GCDAsyncSocketDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tblMessageContent;
@@ -79,7 +80,7 @@ static NSString *MODULE_NAME = @"ViewController";
         NSString * strMsg = [_txtMessage text];
         if (strMsg.length) {
             NSDictionary *dic = @{@"user":self.nickName, @"module":MODULE_NAME, @"msg":strMsg};
-            [socketManager sendMessage:dic];
+            [socketManager sendMessage:dic tag:TAG];
             [self.arrMessages addObject:dic];
             [_tblMessageContent reloadData];
             [_tblMessageContent scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
