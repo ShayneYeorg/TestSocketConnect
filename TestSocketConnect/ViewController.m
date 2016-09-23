@@ -43,28 +43,10 @@ static const long TAG = 0;
     [super viewDidLoad];
     
     self.title = @"Socket Demo - 未上线";
-    
     self.chatVC0 = [ChatViewController new];
     self.chatVC1 = [ChatViewController new];
     
-    
-    
-//    self.arrMessages = [[NSMutableArray alloc] init];
-//    [_btnConnect setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [_btnConnect setTitleColor:[UIColor greenColor] forState:UIControlStateDisabled];
-//    [_btnConnect setTitle:@"连接" forState:UIControlStateNormal];
-//    [_btnConnect setTitle:@"已连接" forState:UIControlStateDisabled];
-//    
-//    
-//    [_btnDisconnect setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [_btnDisconnect setTitleColor:[UIColor redColor] forState:UIControlStateDisabled];
-//    [_btnDisconnect setTitle:@"断开连接" forState:UIControlStateNormal];
-//    [_btnDisconnect setTitle:@"连接已断开" forState:UIControlStateDisabled];
-//    [_btnDisconnect setEnabled:false];
-//    
-//    self.nickName = @"模拟器";
 //    [self setupCallbacks];
-//
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveSocketDidConnectNotification:) name:SOCKET_DID_CONNECT object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveSocketDidDisconnectNotification:) name:SOCKET_DID_DISCONNECT object:nil];
@@ -74,6 +56,12 @@ static const long TAG = 0;
     ShYSocketManager *socketManager = [ShYSocketManager share];
     [socketManager disconnect];
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
 
 
 - (IBAction)onOffLineBtnClick:(id)sender {
@@ -95,8 +83,8 @@ static const long TAG = 0;
                 [socketManager sendMessage:dic tag:TAG];
             }
             
-        }else{
-            NSLog(@"请将相关信息填写完整");
+        } else {
+            NSLog(@"信息不全");
         }
         
         
@@ -238,13 +226,8 @@ static const long TAG = 0;
 
 #pragma mark -
 
-//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    [self.view endEditing:true];
-//}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:true];
 }
 
 
