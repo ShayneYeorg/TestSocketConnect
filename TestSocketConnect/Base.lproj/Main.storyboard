@@ -49,7 +49,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nq0-OJ-nw7">
-                                            <color key="backgroundColor" red="0.031372549020000001" green="0.62352941179999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="sx7-Q6-kq3"/>
                                                 <constraint firstAttribute="width" constant="60" id="tRI-gh-NET"/>
@@ -57,6 +57,9 @@
                                             <state key="normal" title="上线">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onOffLineBtnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cej-hZ-1Ph"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -103,6 +106,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="B6Q-FC-fyT"/>
+                    <connections>
+                        <outlet property="ip" destination="Jfk-Ej-sNM" id="rZw-NM-Xhf"/>
+                        <outlet property="onOffLineBtn" destination="Nq0-OJ-nw7" id="Xsx-Cg-zHc"/>
+                        <outlet property="port" destination="aoI-jJ-Co4" id="LL3-Ns-Tie"/>
+                        <outlet property="user" destination="7xQ-6y-1vr" id="Z8y-g5-43k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

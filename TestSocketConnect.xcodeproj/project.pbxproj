@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1CF42EE996944298BC3B4F8F /* libPods-TestSocketConnect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20248DFA5A3691EF9E25C408 /* libPods-TestSocketConnect.a */; };
 		3401119D1D922BDE0033FEF2 /* ShYSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401119C1D922BDE0033FEF2 /* ShYSocketManager.m */; };
+		340111A61D950D650033FEF2 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340111A41D950D650033FEF2 /* ChatViewController.m */; };
+		340111A71D950D650033FEF2 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 340111A51D950D650033FEF2 /* ChatViewController.xib */; };
 		34959CBD1D91262A0022EEEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CBC1D91262A0022EEEE /* main.m */; };
 		34959CC01D91262A0022EEEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CBF1D91262A0022EEEE /* AppDelegate.m */; };
 		34959CC31D91262A0022EEEE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34959CC21D91262A0022EEEE /* ViewController.m */; };
@@ -21,6 +23,9 @@
 		20248DFA5A3691EF9E25C408 /* libPods-TestSocketConnect.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TestSocketConnect.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3401119B1D922BDE0033FEF2 /* ShYSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShYSocketManager.h; sourceTree = "<group>"; };
 		3401119C1D922BDE0033FEF2 /* ShYSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShYSocketManager.m; sourceTree = "<group>"; };
+		340111A31D950D650033FEF2 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		340111A41D950D650033FEF2 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		340111A51D950D650033FEF2 /* ChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
 		34959CB81D91262A0022EEEE /* TestSocketConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSocketConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34959CBC1D91262A0022EEEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		34959CBE1D91262A0022EEEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -83,6 +88,9 @@
 				34959CC41D91262A0022EEEE /* Main.storyboard */,
 				3401119B1D922BDE0033FEF2 /* ShYSocketManager.h */,
 				3401119C1D922BDE0033FEF2 /* ShYSocketManager.m */,
+				340111A31D950D650033FEF2 /* ChatViewController.h */,
+				340111A41D950D650033FEF2 /* ChatViewController.m */,
+				340111A51D950D650033FEF2 /* ChatViewController.xib */,
 				34959CC71D91262A0022EEEE /* Assets.xcassets */,
 				34959CC91D91262A0022EEEE /* LaunchScreen.storyboard */,
 				34959CCC1D91262A0022EEEE /* Info.plist */,
@@ -172,6 +180,7 @@
 			files = (
 				34959CCB1D91262A0022EEEE /* LaunchScreen.storyboard in Resources */,
 				34959CC81D91262A0022EEEE /* Assets.xcassets in Resources */,
+				340111A71D950D650033FEF2 /* ChatViewController.xib in Resources */,
 				34959CC61D91262A0022EEEE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +242,7 @@
 			files = (
 				34959CC31D91262A0022EEEE /* ViewController.m in Sources */,
 				3401119D1D922BDE0033FEF2 /* ShYSocketManager.m in Sources */,
+				340111A61D950D650033FEF2 /* ChatViewController.m in Sources */,
 				34959CC01D91262A0022EEEE /* AppDelegate.m in Sources */,
 				34959CBD1D91262A0022EEEE /* main.m in Sources */,
 			);
