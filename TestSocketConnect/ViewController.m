@@ -21,6 +21,8 @@ static const long TAG = 0;
 @property (weak, nonatomic) IBOutlet UIButton *btnSend;
 @property (weak, nonatomic) IBOutlet UIButton *btnDisconnect;
 
+
+
 @property (strong, nonatomic) NSMutableArray *arrMessages;
 @property (strong, nonatomic) NSString *nickName;
 
@@ -30,6 +32,9 @@ static const long TAG = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     
     self.arrMessages = [[NSMutableArray alloc] init];
     [_btnConnect setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -142,8 +147,10 @@ static const long TAG = 0;
 
 
 #pragma mark -
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.arrMessages.count;
+//    return self.arrMessages.count;
+    return 10;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -155,45 +162,45 @@ static const long TAG = 0;
         [cell.textLabel setFont:[UIFont systemFontOfSize:14.0]];
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:14.0]];
     }
-    id msg = [self.arrMessages objectAtIndex:indexPath.row];
-    if ([msg isKindOfClass:[NSDictionary class]]) {
-        if ([msg[OPERATION] isEqualToString:OPERATION_CHAT]) {
-            //聊天
-            NSString *user = msg[@"user"]; //这个是用户名
-            if ([user isEqualToString:self.nickName]){
-                [cell.textLabel setTextColor:[UIColor blueColor]];
-                [cell.detailTextLabel setTextColor:[UIColor blueColor]];
-                
-            } else{
-                [cell.textLabel setTextColor:[UIColor greenColor]];
-                [cell.detailTextLabel setTextColor:[UIColor greenColor]];
-            }
-            cell.textLabel.text = user;
-            cell.detailTextLabel.text = msg[@"msg"];
-            
-        } else if ([msg[OPERATION] isEqualToString:OPERATION_ONLINE]) {
-            NSString *user = msg[@"user"]; //这个是用户名
-            [cell.textLabel setTextColor:[UIColor orangeColor]];
-            [cell.detailTextLabel setTextColor:[UIColor orangeColor]];
-            cell.textLabel.text = @"";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@上线了", user];
-            
-        } else  if ([msg[OPERATION] isEqualToString:OPERATION_OFFLINE]) {
-            NSString *user = msg[@"user"]; //这个是用户名
-            [cell.textLabel setTextColor:[UIColor orangeColor]];
-            [cell.detailTextLabel setTextColor:[UIColor orangeColor]];
-            cell.textLabel.text = @"";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@下线了", user];
-            
-        } else {
-            cell.textLabel.text = @"Unknown";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",msg];
-        }
-        
-    } else {
+//    id msg = [self.arrMessages objectAtIndex:indexPath.row];
+//    if ([msg isKindOfClass:[NSDictionary class]]) {
+//        if ([msg[OPERATION] isEqualToString:OPERATION_CHAT]) {
+//            //聊天
+//            NSString *user = msg[@"user"]; //这个是用户名
+//            if ([user isEqualToString:self.nickName]){
+//                [cell.textLabel setTextColor:[UIColor blueColor]];
+//                [cell.detailTextLabel setTextColor:[UIColor blueColor]];
+//                
+//            } else{
+//                [cell.textLabel setTextColor:[UIColor greenColor]];
+//                [cell.detailTextLabel setTextColor:[UIColor greenColor]];
+//            }
+//            cell.textLabel.text = user;
+//            cell.detailTextLabel.text = msg[@"msg"];
+//            
+//        } else if ([msg[OPERATION] isEqualToString:OPERATION_ONLINE]) {
+//            NSString *user = msg[@"user"]; //这个是用户名
+//            [cell.textLabel setTextColor:[UIColor orangeColor]];
+//            [cell.detailTextLabel setTextColor:[UIColor orangeColor]];
+//            cell.textLabel.text = @"";
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@上线了", user];
+//            
+//        } else  if ([msg[OPERATION] isEqualToString:OPERATION_OFFLINE]) {
+//            NSString *user = msg[@"user"]; //这个是用户名
+//            [cell.textLabel setTextColor:[UIColor orangeColor]];
+//            [cell.detailTextLabel setTextColor:[UIColor orangeColor]];
+//            cell.textLabel.text = @"";
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@下线了", user];
+//            
+//        } else {
+//            cell.textLabel.text = @"Unknown";
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",msg];
+//        }
+//    
+//    } else {
         cell.textLabel.text = @"Unknown";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",msg];
-    }
+//        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",msg];
+//    }
     
     return cell;
 }
