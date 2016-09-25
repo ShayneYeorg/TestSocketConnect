@@ -10,7 +10,7 @@
 
 @interface ViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *user;
+- (NSString *)getUserName;
 
 @end
 

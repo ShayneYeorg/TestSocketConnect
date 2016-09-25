@@ -8,8 +8,10 @@
 
 #import "ShYSocketManager.h"
 
+NSString * const MODULE    = @"module";
+NSString * const OPERATION = @"operation";
+
 //操作代码
-NSString * const OPERATION         = @"operation";
 NSString * const OPERATION_ONLINE  = @"000";
 NSString * const OPERATION_OFFLINE = @"001";
 NSString * const OPERATION_CHAT    = @"100";
@@ -70,9 +72,6 @@ static ShYSocketManager *socketManager;
     self.tagModuleContrast = nil;
     self.didSendMsgCallbacks = nil;
     self.didReceiveMsgCallbacks = nil;
-    
-//    self.asyncSocket.delegate = nil;
-//    self.asyncSocket = nil;
 }
 
 - (BOOL)isConnected {
@@ -82,8 +81,8 @@ static ShYSocketManager *socketManager;
 - (void)sendMessage:(NSDictionary *)messageDic tag:(long)tag {
     //保存好发送消息的tag和模块之间的对应关系
     NSString *tagStr = [NSString stringWithFormat:@"%ld", tag];
-    if (!self.tagModuleContrast[tagStr] && messageDic[@"module"]) {
-        [self.tagModuleContrast setObject:messageDic[@"module"] forKey:tagStr];
+    if (!self.tagModuleContrast[tagStr] && messageDic[MODULE]) {
+        [self.tagModuleContrast setObject:messageDic[MODULE] forKey:tagStr];
     }
     
     NSString *dataStr = [self jsonString:messageDic];
@@ -117,10 +116,19 @@ static ShYSocketManager *socketManager;
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     if (dic) {
-        NSString *receiveModule = dic[@"module"];
+        NSString *receiveModule = dic[MODULE];
         if (receiveModule && self.didReceiveMsgCallbacks[receiveModule]) {
             BlockWithDictionary callback = self.didReceiveMsgCallbacks[receiveModule];
             callback(dic);
+            
+        } else {
+            //上下线的要通知所有模块
+            NSString *operation = dic[OPERATION];
+            if ([operation isEqualToString:OPERATION_ONLINE] || [operation isEqualToString:OPERATION_OFFLINE]) {
+                for (BlockWithDictionary callback in self.didReceiveMsgCallbacks) {
+                    callback(dic);
+                }
+            }
         }
     }
     
