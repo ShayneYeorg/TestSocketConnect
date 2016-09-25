@@ -28,7 +28,6 @@ static const long TAG = 0;
 
 @property (weak, nonatomic) IBOutlet UITextField *ip;
 @property (weak, nonatomic) IBOutlet UITextField *port;
-@property (weak, nonatomic) IBOutlet UITextField *user;
 @property (weak, nonatomic) IBOutlet UIButton *onOffLineBtn;
 
 @property (nonatomic, strong) ChatViewController *chatVC0; //聊天室0
@@ -44,7 +43,11 @@ static const long TAG = 0;
     
     self.title = @"Socket Demo - 未上线";
     self.chatVC0 = [ChatViewController new];
+    self.chatVC0.roomNum = 0;
+    self.chatVC0.delegate = self;
     self.chatVC1 = [ChatViewController new];
+    self.chatVC1.roomNum = 1;
+    self.chatVC1.delegate = self;
     
 //    [self setupCallbacks];
     
@@ -55,6 +58,9 @@ static const long TAG = 0;
 - (void)dealloc {
     ShYSocketManager *socketManager = [ShYSocketManager share];
     [socketManager disconnect];
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:SOCKET_DID_CONNECT object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:SOCKET_DID_DISCONNECT object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,7 +159,12 @@ static const long TAG = 0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self.navigationController pushViewController:[ChatViewController new] animated:YES];
+    if (indexPath.row == 0) {
+        [self.navigationController pushViewController:self.chatVC0 animated:YES];
+        
+    } else {
+        [self.navigationController pushViewController:self.chatVC1 animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDataSource

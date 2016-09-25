@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatViewController">
             <connections>
                 <outlet property="chat" destination="9gP-IG-Q0L" id="Izg-pW-La7"/>
+                <outlet property="sendBtn" destination="kfj-cy-sR8" id="QCl-GM-axS"/>
                 <outlet property="tableView" destination="C9m-AS-hd8" id="0x0-kl-KOn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

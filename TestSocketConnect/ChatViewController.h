@@ -11,4 +11,7 @@
 
 @interface ChatViewController : UIViewController
 
+@property (nonatomic, weak) id delegate;
+@property (nonatomic, assign) NSInteger roomNum; //聊天室编号
+
 @end
