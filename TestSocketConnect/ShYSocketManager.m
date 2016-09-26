@@ -39,8 +39,9 @@ static ShYSocketManager *socketManager;
 
 @implementation ShYSocketManager
 
-- (instancetype)init
-{
+#pragma mark - Life Cycle
+
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.asyncSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -90,8 +91,6 @@ static ShYSocketManager *socketManager;
     [self.asyncSocket writeData:data withTimeout:-1 tag:tag];
 }
 
-#pragma mark - SetUpCallbacks
-
 - (void)setDidSendMessageCallback:(VoidBlock)sendMessageCallback module:(NSString *)moduleName {
     [self.didSendMsgCallbacks setObject:sendMessageCallback forKey:moduleName];
 }
@@ -122,20 +121,8 @@ static ShYSocketManager *socketManager;
             if (callback) {
                 callback(dic);
             }
-            
-        } else {
-            //连接、断开要通知所有模块
-            NSString *operation = dic[OPERATION];
-            if ([operation isEqualToString:OPERATION_ONLINE] || [operation isEqualToString:OPERATION_OFFLINE]) {
-                for (BlockWithDictionary callback in self.didReceiveMsgCallbacks) {
-                    if (callback) {
-                        callback(dic);
-                    }
-                }
-            }
         }
     }
-    
     [sock readDataWithTimeout:-1 tag:tag];
 }
 
@@ -152,8 +139,7 @@ static ShYSocketManager *socketManager;
     [sock readDataWithTimeout:-1 tag:tag];
 }
 
-
-
+#pragma mark - Private
 
 - (NSString *)jsonString:(NSDictionary *)dicMsg {
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dicMsg options:NSJSONWritingPrettyPrinted error:nil];

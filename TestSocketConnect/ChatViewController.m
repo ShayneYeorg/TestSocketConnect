@@ -25,6 +25,8 @@
 
 @implementation ChatViewController
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -48,31 +50,12 @@
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - Private
+
 - (IBAction)cleanBtnClick:(id)sender {
     [self.arrMessages removeAllObjects];
     [self.tableView reloadData];
 }
-
-
-
-
-
-
-- (void)setupCallbacks {
-    ShYSocketManager *socketManager = [ShYSocketManager share];
-    __weak typeof(self) weakSelf = self;
-    
-//    [socketManager setDidSendMessageCallback:^{
-//        [weakSelf.chat setText:@""];
-//    } module:self.moduleName];
-    
-    [socketManager setDidReceiveMessageCallback:^(NSDictionary *dic) {
-        [weakSelf.arrMessages addObject:dic];
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
-    } module:self.moduleName];
-}
-
 
 - (IBAction)onOffLineBtnClick:(id)sender {
     ShYSocketManager *socketManager = [ShYSocketManager share];
@@ -124,6 +107,21 @@
     }else{
         NSLog(@"未连接服务器");
     }
+}
+
+- (void)setupCallbacks {
+    ShYSocketManager *socketManager = [ShYSocketManager share];
+    __weak typeof(self) weakSelf = self;
+    
+    //    [socketManager setDidSendMessageCallback:^{
+    //        [weakSelf.chat setText:@""];
+    //    } module:self.moduleName];
+    
+    [socketManager setDidReceiveMessageCallback:^(NSDictionary *dic) {
+        [weakSelf.arrMessages addObject:dic];
+        [weakSelf.tableView reloadData];
+        [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
+    } module:self.moduleName];
 }
 
 #pragma mark - Notification

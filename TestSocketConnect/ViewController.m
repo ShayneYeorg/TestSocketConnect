@@ -9,9 +9,6 @@
 #import "ViewController.h"
 #import "ChatViewController.h"
 
-static NSString *MODULE_NAME = @"MainVC";
-static const long TAG = 0;
-
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITextField *ip;
@@ -24,6 +21,8 @@ static const long TAG = 0;
 @end
 
 @implementation ViewController
+
+#pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,6 +49,11 @@ static const long TAG = 0;
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - Private
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:true];
+}
 
 - (IBAction)onOffLineBtnClick:(id)sender {
     [self.view endEditing:true];
@@ -75,7 +79,7 @@ static const long TAG = 0;
     }
 }
 
-
+#pragma mark - Notification
 
 - (void)receiveSocketDidConnectNotification:(NSNotification *)notification {
     [self.onOffLineBtn setTitle:@"断开" forState:UIControlStateNormal];
@@ -116,14 +120,5 @@ static const long TAG = 0;
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self.view endEditing:true];
 }
-
-
-#pragma mark -
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:true];
-}
-
-
 
 @end
