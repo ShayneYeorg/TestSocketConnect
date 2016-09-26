@@ -119,14 +119,18 @@ static ShYSocketManager *socketManager;
         NSString *receiveModule = dic[MODULE];
         if (receiveModule && self.didReceiveMsgCallbacks[receiveModule]) {
             BlockWithDictionary callback = self.didReceiveMsgCallbacks[receiveModule];
-            callback(dic);
+            if (callback) {
+                callback(dic);
+            }
             
         } else {
             //上下线的要通知所有模块
             NSString *operation = dic[OPERATION];
             if ([operation isEqualToString:OPERATION_ONLINE] || [operation isEqualToString:OPERATION_OFFLINE]) {
                 for (BlockWithDictionary callback in self.didReceiveMsgCallbacks) {
-                    callback(dic);
+                    if (callback) {
+                        callback(dic);
+                    }
                 }
             }
         }

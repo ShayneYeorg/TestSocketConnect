@@ -18,9 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C9m-AS-hd8">
-                    <frame key="frameInset" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C9m-AS-hd8">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="BlH-z0-BD5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
@@ -84,6 +82,12 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="C9m-AS-hd8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0Gr-iN-u3f"/>
+                <constraint firstItem="C9m-AS-hd8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CdU-gt-ZAY"/>
+                <constraint firstAttribute="bottom" secondItem="C9m-AS-hd8" secondAttribute="bottom" id="Hg4-hN-1m4"/>
+                <constraint firstAttribute="trailing" secondItem="C9m-AS-hd8" secondAttribute="trailing" id="ofA-nR-7xg"/>
+            </constraints>
             <point key="canvasLocation" x="32.5" y="52.5"/>
         </view>
     </objects>
