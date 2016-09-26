@@ -8,8 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatViewController">
             <connections>
                 <outlet property="chat" destination="9gP-IG-Q0L" id="Izg-pW-La7"/>
+                <outlet property="onOffLineBtn" destination="23d-Qj-ueh" id="oBL-4i-JwU"/>
                 <outlet property="sendBtn" destination="kfj-cy-sR8" id="QCl-GM-axS"/>
                 <outlet property="tableView" destination="C9m-AS-hd8" id="0x0-kl-KOn"/>
+                <outlet property="user" destination="a8N-t6-krd" id="wxh-r9-WhW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,9 +23,17 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C9m-AS-hd8">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="BlH-z0-BD5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="你好！" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9gP-IG-Q0L">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Pt6-K6-dFh"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfj-cy-sR8">
                                 <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -50,24 +60,44 @@
                                     <action selector="cleanBtnClick:" destination="-1" eventType="touchUpInside" id="xP1-zy-m8p"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="你好！" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9gP-IG-Q0L">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ShayneYeorg" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a8N-t6-krd">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Pt6-K6-dFh"/>
+                                    <constraint firstAttribute="height" constant="30" id="Mdb-hd-Aa1"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23d-Qj-ueh">
+                                <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Ckk-84-EKb"/>
+                                    <constraint firstAttribute="width" constant="80" id="eEZ-W3-6Vw"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="jr9-SK-Oxm"/>
+                                    <constraint firstAttribute="height" constant="30" id="q5C-ti-SFT"/>
+                                </constraints>
+                                <state key="normal" title="上线">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onOffLineBtnClick:" destination="-1" eventType="touchUpInside" id="zZO-SJ-wQG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="23d-Qj-ueh" firstAttribute="top" secondItem="BlH-z0-BD5" secondAttribute="top" constant="24" id="5Sf-NM-6fN"/>
                             <constraint firstAttribute="trailing" secondItem="9gP-IG-Q0L" secondAttribute="trailing" constant="7" id="6eb-KK-uNT"/>
                             <constraint firstItem="kDu-mZ-DHQ" firstAttribute="top" secondItem="9gP-IG-Q0L" secondAttribute="bottom" constant="20" id="8H6-M4-8jo"/>
                             <constraint firstItem="kfj-cy-sR8" firstAttribute="top" secondItem="9gP-IG-Q0L" secondAttribute="bottom" constant="20" id="8VG-ZV-orn"/>
                             <constraint firstItem="9gP-IG-Q0L" firstAttribute="leading" secondItem="BlH-z0-BD5" secondAttribute="leading" constant="7" id="9kM-HT-Z1j"/>
                             <constraint firstAttribute="trailing" secondItem="kfj-cy-sR8" secondAttribute="trailing" constant="8" id="BUG-j4-6um"/>
                             <constraint firstItem="kfj-cy-sR8" firstAttribute="leading" secondItem="kDu-mZ-DHQ" secondAttribute="trailing" constant="18" id="MS1-Z6-N2J"/>
-                            <constraint firstItem="9gP-IG-Q0L" firstAttribute="top" secondItem="BlH-z0-BD5" secondAttribute="top" constant="24" id="S7w-j1-TdK"/>
+                            <constraint firstAttribute="trailing" secondItem="23d-Qj-ueh" secondAttribute="trailing" constant="8" id="Yoq-IB-Opa"/>
+                            <constraint firstItem="23d-Qj-ueh" firstAttribute="leading" secondItem="a8N-t6-krd" secondAttribute="trailing" constant="18" id="jhi-va-ccw"/>
+                            <constraint firstItem="9gP-IG-Q0L" firstAttribute="top" secondItem="a8N-t6-krd" secondAttribute="bottom" constant="22" id="mkj-Tp-CVe"/>
+                            <constraint firstItem="a8N-t6-krd" firstAttribute="leading" secondItem="BlH-z0-BD5" secondAttribute="leading" constant="8" id="pBe-ft-oX2"/>
+                            <constraint firstItem="a8N-t6-krd" firstAttribute="top" secondItem="BlH-z0-BD5" secondAttribute="top" constant="24" id="vwl-ef-Y1W"/>
                         </constraints>
                     </view>
                     <view key="tableFooterView" contentMode="scaleToFill" id="9dl-h6-iWo">

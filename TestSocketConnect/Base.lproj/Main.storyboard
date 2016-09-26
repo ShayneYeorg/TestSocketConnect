@@ -40,21 +40,13 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ShayneYeorg" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7xQ-6y-1vr">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="275" id="xWR-qf-r3t"/>
-                                            </constraints>
-                                            <nil key="textColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nq0-OJ-nw7">
                                             <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="sx7-Q6-kq3"/>
                                                 <constraint firstAttribute="width" constant="60" id="tRI-gh-NET"/>
                                             </constraints>
-                                            <state key="normal" title="上线">
+                                            <state key="normal" title="连接">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
@@ -65,13 +57,10 @@
                                     <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="aoI-jJ-Co4" secondAttribute="trailing" constant="16" id="2Pg-2d-0gz"/>
-                                        <constraint firstItem="Nq0-OJ-nw7" firstAttribute="leading" secondItem="7xQ-6y-1vr" secondAttribute="trailing" constant="8" id="90I-1q-Ynr"/>
                                         <constraint firstItem="aoI-jJ-Co4" firstAttribute="top" secondItem="IVW-4o-sGN" secondAttribute="top" constant="20" id="Xky-5w-Vz0"/>
                                         <constraint firstItem="aoI-jJ-Co4" firstAttribute="leading" secondItem="Jfk-Ej-sNM" secondAttribute="trailing" constant="8" id="afw-ln-RzZ"/>
                                         <constraint firstAttribute="trailing" secondItem="Nq0-OJ-nw7" secondAttribute="trailing" constant="16" id="dVq-tl-dfd"/>
-                                        <constraint firstItem="7xQ-6y-1vr" firstAttribute="leading" secondItem="IVW-4o-sGN" secondAttribute="leading" constant="16" id="iUX-ZW-9kC"/>
                                         <constraint firstItem="Jfk-Ej-sNM" firstAttribute="top" secondItem="IVW-4o-sGN" secondAttribute="top" constant="20" id="rMv-Tz-0Px"/>
-                                        <constraint firstItem="7xQ-6y-1vr" firstAttribute="top" secondItem="Jfk-Ej-sNM" secondAttribute="bottom" constant="10" id="sGd-zi-Tcx"/>
                                         <constraint firstItem="Jfk-Ej-sNM" firstAttribute="leading" secondItem="IVW-4o-sGN" secondAttribute="leading" constant="16" id="shq-GO-mda"/>
                                         <constraint firstItem="Nq0-OJ-nw7" firstAttribute="top" secondItem="aoI-jJ-Co4" secondAttribute="bottom" constant="12" id="tbz-kZ-s7g"/>
                                     </constraints>
@@ -110,7 +99,6 @@
                         <outlet property="ip" destination="Jfk-Ej-sNM" id="rZw-NM-Xhf"/>
                         <outlet property="onOffLineBtn" destination="Nq0-OJ-nw7" id="Xsx-Cg-zHc"/>
                         <outlet property="port" destination="aoI-jJ-Co4" id="LL3-Ns-Tie"/>
-                        <outlet property="user" destination="7xQ-6y-1vr" id="Z8y-g5-43k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -124,7 +124,7 @@ static ShYSocketManager *socketManager;
             }
             
         } else {
-            //上下线的要通知所有模块
+            //连接、断开要通知所有模块
             NSString *operation = dic[OPERATION];
             if ([operation isEqualToString:OPERATION_ONLINE] || [operation isEqualToString:OPERATION_OFFLINE]) {
                 for (BlockWithDictionary callback in self.didReceiveMsgCallbacks) {
@@ -144,7 +144,9 @@ static ShYSocketManager *socketManager;
     NSString *tagStr = [NSString stringWithFormat:@"%ld", tag];
     if (self.tagModuleContrast[tagStr] && self.didSendMsgCallbacks[self.tagModuleContrast[tagStr]]) {
         VoidBlock callback = self.didSendMsgCallbacks[self.tagModuleContrast[tagStr]];
-        callback();
+        if (callback) {
+            callback();
+        }
     }
     NSLog(@"已发送Tag: %ld", tag);
     [sock readDataWithTimeout:-1 tag:tag];

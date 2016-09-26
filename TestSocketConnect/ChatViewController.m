@@ -13,10 +13,13 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *chat;
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
+@property (weak, nonatomic) IBOutlet UITextField *user;
+@property (weak, nonatomic) IBOutlet UIButton *onOffLineBtn;
 
 @property (strong, nonatomic) NSMutableArray *arrMessages;
 @property (strong, nonatomic) NSString *moduleName;
 @property (assign, nonatomic) long moduleTag;
+@property (assign, nonatomic) BOOL isOnline;
 
 @end
 
@@ -24,7 +27,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.arrMessages = [NSMutableArray array];
+    self.title = [NSString stringWithFormat:@"聊天室%zd - 未上线", self.roomNum];
+    self.moduleName = [NSString stringWithFormat:@"CHATROOM%zd", self.roomNum];
+    self.moduleTag = _roomNum + 10;
+    self.isOnline = NO;
+    [self setupCallbacks];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveSocketDidConnectNotification:) name:SOCKET_DID_CONNECT object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveSocketDidDisconnectNotification:) name:SOCKET_DID_DISCONNECT object:nil];
@@ -53,9 +62,9 @@
     ShYSocketManager *socketManager = [ShYSocketManager share];
     __weak typeof(self) weakSelf = self;
     
-    [socketManager setDidSendMessageCallback:^{
-        [weakSelf.chat setText:@""];
-    } module:self.moduleName];
+//    [socketManager setDidSendMessageCallback:^{
+//        [weakSelf.chat setText:@""];
+//    } module:self.moduleName];
     
     [socketManager setDidReceiveMessageCallback:^(NSDictionary *dic) {
         [weakSelf.arrMessages addObject:dic];
@@ -64,17 +73,51 @@
     } module:self.moduleName];
 }
 
+
+- (IBAction)onOffLineBtnClick:(id)sender {
+    ShYSocketManager *socketManager = [ShYSocketManager share];
+    if (!self.isOnline) {
+        //要上线
+        [self.onOffLineBtn setTitle:@"下线" forState:UIControlStateNormal];
+        self.onOffLineBtn.backgroundColor = [UIColor redColor];
+        self.isOnline = YES;
+        self.title = [NSString stringWithFormat:@"聊天室%zd - 已上线", self.roomNum];
+        
+        //告诉全世界,哥上线了
+        NSDictionary *dic = @{@"user":self.user.text, @"module":self.moduleName, OPERATION: OPERATION_ONLINE};
+        [socketManager sendMessage:dic tag:self.moduleTag];
+        
+    } else {
+        //要下线
+        [self.onOffLineBtn setTitle:@"上线" forState:UIControlStateNormal];
+        self.onOffLineBtn.backgroundColor = [UIColor brownColor];
+        self.isOnline = NO;
+        self.title = [NSString stringWithFormat:@"聊天室%zd - 未上线", self.roomNum];
+        
+        //告诉全世界，哥下线了
+        NSDictionary *dic = @{@"user":self.user.text, @"module":self.moduleName, OPERATION: OPERATION_OFFLINE};
+        [socketManager sendMessage:dic tag:self.moduleTag];
+    }
+}
+
 - (IBAction)sendBtnClick:(id)sender {
+    if (!self.isOnline) {
+        NSLog(@"请先上线");
+        return;
+    }
+    
     [self.view endEditing:true];
     ShYSocketManager *socketManager = [ShYSocketManager share];
     if ([socketManager isConnected]) {
-        NSString *strMsg = [_chat text];
+        NSString *strMsg = [self.chat text];
         if (strMsg.length) {
-            NSDictionary *dic = @{@"user":[self getUserName], @"module":self.moduleName, @"msg":strMsg, OPERATION: OPERATION_CHAT};
+            NSDictionary *dic = @{@"user":self.user.text, @"module":self.moduleName, @"msg":strMsg, OPERATION: OPERATION_CHAT};
             [socketManager sendMessage:dic tag:self.moduleTag];
+            [self.chat setText:@""];
             [self.arrMessages addObject:dic];
             [self.tableView reloadData];
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.arrMessages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:true];
+            
         }else{
             NSLog(@"信息不能为空");
         }
@@ -83,33 +126,19 @@
     }
 }
 
-- (NSString *)getUserName {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(getUserName)]) {
-        NSString *name = (NSString *)[self.delegate getUserName];
-        return name;
-    }
-    return nil;
-}
-
-#pragma mark - Setter
-
-- (void)setRoomNum:(NSInteger)roomNum {
-    _roomNum = roomNum;
-    self.title = [NSString stringWithFormat:@"聊天室%zd", _roomNum];
-    self.moduleName = [NSString stringWithFormat:@"CHATROOM%zd", _roomNum];
-    self.moduleTag = _roomNum + 10;
-    [self setupCallbacks];
-}
-
 #pragma mark - Notification
 
 - (void)receiveSocketDidConnectNotification:(NSNotification *)notification {
+    self.onOffLineBtn.userInteractionEnabled = YES;
     self.sendBtn.userInteractionEnabled = YES;
-    self.title = [NSString stringWithFormat:@"聊天室%zd - 已上线", self.roomNum];
 }
 
 - (void)receiveSocketDidDisconnectNotification:(NSNotification *)notification {
     self.sendBtn.userInteractionEnabled = NO;
+    [self.onOffLineBtn setTitle:@"上线" forState:UIControlStateNormal];
+    self.onOffLineBtn.backgroundColor = [UIColor brownColor];
+    self.onOffLineBtn.userInteractionEnabled = NO;
+    self.isOnline = NO;
     self.title = [NSString stringWithFormat:@"聊天室%zd - 未上线", self.roomNum];
 }
 
@@ -134,7 +163,7 @@
         if ([msg[OPERATION] isEqualToString:OPERATION_CHAT]) {
             //聊天
             NSString *user = msg[@"user"]; //这个是用户名
-            if ([user isEqualToString:[self getUserName]]){
+            if ([user isEqualToString:self.user.text]){
                 [cell.textLabel setTextColor:[UIColor blueColor]];
                 [cell.detailTextLabel setTextColor:[UIColor blueColor]];
                 

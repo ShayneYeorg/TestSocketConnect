@@ -10,7 +10,5 @@
 
 @interface ViewController : UIViewController
 
-- (NSString *)getUserName;
-
 @end
 
